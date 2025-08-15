@@ -52,7 +52,6 @@ jobs:
     - name: Prepare deployment directory
       run: |
         mkdir -p deploy
-        cp index.html deploy/
         cp -r cv-simple/dist/cv-simple/browser/* deploy/
 
     - name: Setup Pages
