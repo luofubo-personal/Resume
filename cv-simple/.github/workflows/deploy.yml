@@ -51,11 +51,21 @@ jobs:
 
     - name: Prepare deployment directory
       run: |
+        # Check the actual build structure
+        echo "Build structure:"
+        find cv-simple/dist -name "index.html" -type f
+
+        # Create deploy directory and copy files
         mkdir -p deploy
+
         # Copy all Angular build files directly to deploy root
-        cp -r cv-simple/dist/cv-simple/browser/* deploy/
-        # Verify index.html exists
+        cp -r cv-simple/dist/browser/* deploy/
+
+        # Verify deployment structure
+        echo "Deployment structure:"
         ls -la deploy/
+        echo "index.html content preview:"
+        head -5 deploy/index.html
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
