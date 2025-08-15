@@ -199,13 +199,14 @@ export class DynamicFieldComponent {
   @Input() field!: FieldConfig;
   @Input() value: unknown;
 
-  getUrlType(url: string): string {
-    if (url.includes('linkedin.com')) return 'linkedin';
-    if (url.includes('github.com')) return 'github';
+  getUrlType(url: unknown): string {
+    const urlString = String(url);
+    if (urlString.includes('linkedin.com')) return 'linkedin';
+    if (urlString.includes('github.com')) return 'github';
     return 'website';
   }
 
-  getUrlDisplay(url: string): string {
+  getUrlDisplay(url: unknown): string {
     const type = this.getUrlType(url);
     switch (type) {
       case 'linkedin': return 'LinkedIn Profile';
@@ -214,17 +215,18 @@ export class DynamicFieldComponent {
     }
   }
 
-  formatDate(dateStr: string): string {
-    if (dateStr === 'Present') return 'Present';
-    
-    const [year, month] = dateStr.split('-');
+  formatDate(dateStr: unknown): string {
+    const dateString = String(dateStr);
+    if (dateString === 'Present') return 'Present';
+
+    const [year, month] = dateString.split('-');
     if (!month) return year;
-    
+
     const monthNames = [
       'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
     ];
-    
+
     return `${monthNames[parseInt(month) - 1]} ${year}`;
   }
 

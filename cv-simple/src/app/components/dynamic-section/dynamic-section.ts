@@ -22,53 +22,53 @@ import { PersonalInfo } from '../../models/cv.models';
         <!-- Personal Info Section -->
         <div *ngSwitchCase="'personalInfo'" class="personal-info-content">
           <div class="personal-header">
-            <h1 *ngIf="data.name" class="person-name">{{ data.name }}</h1>
-            <h2 *ngIf="data.title" class="person-title">{{ data.title }}</h2>
+            <h1 *ngIf="hasDataProperty('name')" class="person-name">{{ getDataProperty('name') }}</h1>
+            <h2 *ngIf="hasDataProperty('title')" class="person-title">{{ getDataProperty('title') }}</h2>
           </div>
-          
+
           <div class="contact-info">
             <div *ngFor="let field of getPersonalInfoFields()" class="contact-item">
-              <app-dynamic-field 
-                [field]="field" 
-                [value]="data[field.key]">
+              <app-dynamic-field
+                [field]="field"
+                [value]="getDataProperty(field.key)">
               </app-dynamic-field>
             </div>
           </div>
-          
-          <div *ngIf="data.summary" class="summary">
-            <p>{{ data.summary }}</p>
+
+          <div *ngIf="hasDataProperty('summary')" class="summary">
+            <p>{{ getDataProperty('summary') }}</p>
           </div>
         </div>
 
         <!-- Experience Section -->
         <div *ngSwitchCase="'experience'" class="experience-content">
-          <div *ngFor="let job of data.jobs" class="job-item">
+          <div *ngFor="let job of getDataArray('jobs')" class="job-item">
             <div class="job-header">
-              <h3 class="job-title">{{ job.position }}</h3>
-              <h4 class="job-company">{{ job.company }}</h4>
+              <h3 class="job-title">{{ getItemProperty(job, 'position') }}</h3>
+              <h4 class="job-company">{{ getItemProperty(job, 'company') }}</h4>
               <div class="job-meta">
                 <span class="job-dates">
-                  {{ formatDate(job.startDate) }} - {{ formatDate(job.endDate) }}
+                  {{ formatItemDate(job, 'startDate') }} - {{ formatItemDate(job, 'endDate') }}
                 </span>
-                <span *ngIf="job.location" class="job-location">{{ job.location }}</span>
+                <span *ngIf="hasItemProperty(job, 'location')" class="job-location">{{ getItemProperty(job, 'location') }}</span>
               </div>
             </div>
-            
+
             <div class="job-content">
-              <p *ngIf="job.description" class="job-description">{{ job.description }}</p>
-              
-              <div *ngIf="job.achievements?.length > 0" class="achievements">
+              <p *ngIf="hasItemProperty(job, 'description')" class="job-description">{{ getItemProperty(job, 'description') }}</p>
+
+              <div *ngIf="hasItemArrayWithLength(job, 'achievements')" class="achievements">
                 <h5>Key Achievements:</h5>
                 <ul>
-                  <li *ngFor="let achievement of job.achievements">{{ achievement.text }}</li>
+                  <li *ngFor="let achievement of getItemArray(job, 'achievements')">{{ getItemProperty(achievement, 'text') }}</li>
                 </ul>
               </div>
-              
-              <div *ngIf="job.technologies?.length > 0" class="technologies">
+
+              <div *ngIf="hasItemArrayWithLength(job, 'technologies')" class="technologies">
                 <h5>Technologies Used:</h5>
-                <app-dynamic-field 
+                <app-dynamic-field
                   [field]="{key: 'technologies', label: 'Technologies', type: 'list', visible: true}"
-                  [value]="job.technologies">
+                  [value]="getItemProperty(job, 'technologies')">
                 </app-dynamic-field>
               </div>
             </div>
@@ -77,24 +77,24 @@ import { PersonalInfo } from '../../models/cv.models';
 
         <!-- Education Section -->
         <div *ngSwitchCase="'education'" class="education-content">
-          <div *ngFor="let degree of data.degrees" class="degree-item">
+          <div *ngFor="let degree of getDataArray('degrees')" class="degree-item">
             <div class="degree-header">
-              <h3 class="degree-title">{{ degree.degree }}</h3>
-              <h4 class="degree-institution">{{ degree.institution }}</h4>
+              <h3 class="degree-title">{{ getItemProperty(degree, 'degree') }}</h3>
+              <h4 class="degree-institution">{{ getItemProperty(degree, 'institution') }}</h4>
               <div class="degree-meta">
                 <span class="degree-dates">
-                  {{ formatDate(degree.startDate) }} - {{ formatDate(degree.endDate) }}
+                  {{ formatItemDate(degree, 'startDate') }} - {{ formatItemDate(degree, 'endDate') }}
                 </span>
-                <span *ngIf="degree.gpa" class="degree-gpa">GPA: {{ degree.gpa }}</span>
-                <span *ngIf="degree.honors" class="degree-honors">{{ degree.honors }}</span>
+                <span *ngIf="hasItemProperty(degree, 'gpa')" class="degree-gpa">GPA: {{ getItemProperty(degree, 'gpa') }}</span>
+                <span *ngIf="hasItemProperty(degree, 'honors')" class="degree-honors">{{ getItemProperty(degree, 'honors') }}</span>
               </div>
             </div>
-            
-            <div *ngIf="degree.relevantCourses?.length > 0" class="relevant-courses">
+
+            <div *ngIf="hasItemArrayWithLength(degree, 'relevantCourses')" class="relevant-courses">
               <h5>Relevant Courses:</h5>
-              <app-dynamic-field 
+              <app-dynamic-field
                 [field]="{key: 'relevantCourses', label: 'Courses', type: 'list', visible: true}"
-                [value]="degree.relevantCourses">
+                [value]="getItemProperty(degree, 'relevantCourses')">
               </app-dynamic-field>
             </div>
           </div>
@@ -102,12 +102,12 @@ import { PersonalInfo } from '../../models/cv.models';
 
         <!-- Skills Section -->
         <div *ngSwitchCase="'skills'" class="skills-content">
-          <div *ngFor="let category of data.categories" class="skill-category">
-            <h3 class="category-title">{{ category.name }}</h3>
+          <div *ngFor="let category of getDataArray('categories')" class="skill-category">
+            <h3 class="category-title">{{ getItemProperty(category, 'name') }}</h3>
             <div class="skills-list">
-              <app-dynamic-field 
+              <app-dynamic-field
                 [field]="{key: 'skills', label: 'Skills', type: 'array', visible: true}"
-                [value]="category.skills">
+                [value]="getItemProperty(category, 'skills')">
               </app-dynamic-field>
             </div>
           </div>
@@ -115,13 +115,13 @@ import { PersonalInfo } from '../../models/cv.models';
 
         <!-- Certifications Section -->
         <div *ngSwitchCase="'certifications'" class="certifications-content">
-          <div *ngFor="let cert of data.certifications" class="certification-item">
+          <div *ngFor="let cert of getDataArray('certifications')" class="certification-item">
             <div class="cert-header">
-              <h3 class="cert-name">{{ cert.name }}</h3>
-              <h4 class="cert-issuer">{{ cert.issuer }}</h4>
+              <h3 class="cert-name">{{ getItemProperty(cert, 'name') }}</h3>
+              <h4 class="cert-issuer">{{ getItemProperty(cert, 'issuer') }}</h4>
               <div class="cert-meta">
-                <span class="cert-date">{{ formatDate(cert.date) }}</span>
-                <span *ngIf="cert.credentialId" class="cert-id">ID: {{ cert.credentialId }}</span>
+                <span class="cert-date">{{ formatItemDate(cert, 'date') }}</span>
+                <span *ngIf="hasItemProperty(cert, 'credentialId')" class="cert-id">ID: {{ getItemProperty(cert, 'credentialId') }}</span>
               </div>
             </div>
           </div>
@@ -129,22 +129,22 @@ import { PersonalInfo } from '../../models/cv.models';
 
         <!-- Projects Section -->
         <div *ngSwitchCase="'projects'" class="projects-content">
-          <div *ngFor="let project of data.projects" class="project-item">
+          <div *ngFor="let project of getDataArray('projects')" class="project-item">
             <div class="project-header">
-              <h3 class="project-name">{{ project.name }}</h3>
-              <a *ngIf="project.url" [href]="project.url" target="_blank" class="project-link">
+              <h3 class="project-name">{{ getItemProperty(project, 'name') }}</h3>
+              <a *ngIf="hasItemProperty(project, 'url')" [href]="getItemProperty(project, 'url')" target="_blank" class="project-link">
                 View Project →
               </a>
             </div>
-            
+
             <div class="project-content">
-              <p *ngIf="project.description" class="project-description">{{ project.description }}</p>
-              
-              <div *ngIf="project.technologies?.length > 0" class="project-technologies">
+              <p *ngIf="hasItemProperty(project, 'description')" class="project-description">{{ getItemProperty(project, 'description') }}</p>
+
+              <div *ngIf="hasItemArrayWithLength(project, 'technologies')" class="project-technologies">
                 <h5>Technologies:</h5>
-                <app-dynamic-field 
+                <app-dynamic-field
                   [field]="{key: 'technologies', label: 'Technologies', type: 'list', visible: true}"
-                  [value]="project.technologies">
+                  [value]="getItemProperty(project, 'technologies')">
                 </app-dynamic-field>
               </div>
             </div>
@@ -451,6 +451,65 @@ export class DynamicSectionComponent {
   @Input() data: unknown;
 
   private dynamicRenderer = inject(DynamicRendererService);
+
+  // Helper methods to safely access data properties
+  getDataProperty(key: string): unknown {
+    if (typeof this.data === 'object' && this.data !== null) {
+      return (this.data as Record<string, unknown>)[key];
+    }
+    return undefined;
+  }
+
+  hasDataProperty(key: string): boolean {
+    if (typeof this.data === 'object' && this.data !== null) {
+      const obj = this.data as Record<string, unknown>;
+      return obj[key] !== undefined && obj[key] !== null;
+    }
+    return false;
+  }
+
+  getDataArray(key: string): unknown[] {
+    const value = this.getDataProperty(key);
+    if (Array.isArray(value)) {
+      return value;
+    }
+    return [];
+  }
+
+  // Helper methods to safely access properties of array items
+  getItemProperty(item: unknown, key: string): unknown {
+    if (typeof item === 'object' && item !== null) {
+      return (item as Record<string, unknown>)[key];
+    }
+    return undefined;
+  }
+
+  hasItemProperty(item: unknown, key: string): boolean {
+    if (typeof item === 'object' && item !== null) {
+      const obj = item as Record<string, unknown>;
+      return obj[key] !== undefined && obj[key] !== null;
+    }
+    return false;
+  }
+
+  getItemArray(item: unknown, key: string): unknown[] {
+    const value = this.getItemProperty(item, key);
+    if (Array.isArray(value)) {
+      return value;
+    }
+    return [];
+  }
+
+  hasItemArrayWithLength(item: unknown, key: string): boolean {
+    const array = this.getItemArray(item, key);
+    return array.length > 0;
+  }
+
+  // Helper method to safely format dates from unknown values
+  formatItemDate(item: unknown, key: string): string {
+    const value = this.getItemProperty(item, key);
+    return this.formatDate(String(value || ''));
+  }
 
   getSectionIcon(): string {
     const iconMap: Record<string, string> = {
