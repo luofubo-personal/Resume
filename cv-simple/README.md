@@ -2,6 +2,11 @@
 
 A sophisticated, data-driven CV/Resume application built with Angular that automatically generates professional UI components based on XML data structure.
 
+## 🌐 **Live Demo**
+**Visit the live application:** [https://luofubo-personal.github.io/](https://luofubo-personal.github.io/)
+
+> **Note**: The live demo is automatically deployed from the `main` branch using GitHub Actions.
+
 ## ✨ Key Features
 
 ### 🎯 **Dynamic Component Generation**
@@ -254,15 +259,22 @@ npm run lint -- --fix
 
 ## 🚀 Deployment
 
-### **Build for Production**
+### **🌐 GitHub Pages (Automatic)**
+This repository is configured for automatic deployment to GitHub Pages:
+
+- **Live URL**: [https://luofubo-personal.github.io/](https://luofubo-personal.github.io/)
+- **Auto-Deploy**: Every push to `main` branch triggers deployment
+- **Build Process**: GitHub Actions runs tests, linting, and builds the application
+- **Status**: [![Deploy to GitHub Pages](https://github.com/luofubo-personal/luofubo.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/luofubo-personal/luofubo.github.io/actions/workflows/deploy.yml)
+
+### **🔧 Manual Build for Production**
 ```bash
 npm run build
 ```
 
 The build artifacts will be stored in the `dist/` directory, optimized for production deployment.
 
-### **Deployment Options**
-- **GitHub Pages**: Perfect for showcasing your CV
+### **📋 Other Deployment Options**
 - **Netlify/Vercel**: Easy deployment with continuous integration
 - **Traditional Web Hosting**: Upload the `dist/` folder contents
 - **Docker**: Containerized deployment for scalable hosting
