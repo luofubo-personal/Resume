@@ -78,13 +78,23 @@ async function generateStaticHTML() {
  */
 function processHTML(html) {
     console.log('🔧 Processing HTML for static deployment...');
-    
+
     // Replace base href to work with GitHub Pages
     let processed = html.replace(
         /<base href="\/">/g,
         '<base href="/Resume/">'
     );
-    
+
+    // Remove the Angular JavaScript files since we have static content
+    processed = processed.replace(
+        /<script src="polyfills-[^"]+\.js" type="module"><\/script>/g,
+        ''
+    );
+    processed = processed.replace(
+        /<script src="main-[^"]+\.js" type="module"><\/script>/g,
+        ''
+    );
+
     // Add meta tags for better SEO
     const metaTags = `
     <meta name="description" content="Bo's Professional CV - Dynamic CV Generator showcasing skills, experience, and projects">
@@ -95,16 +105,19 @@ function processHTML(html) {
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://luofubo-personal.github.io/Resume/">
     `;
-    
+
     processed = processed.replace('</head>', `${metaTags}</head>`);
-    
+
     // Add a comment indicating this is a generated file
     const comment = `
-<!-- 
+<!--
     This is a statically generated version of the Dynamic CV Generator
     Generated on: ${new Date().toISOString()}
     Source: Angular application in cv-simple/
-    
+
+    This is a pure static HTML file - no JavaScript runtime needed!
+    All content is pre-rendered and ready for immediate display.
+
     To update this file:
     1. Make changes to the Angular app in cv-simple/
     2. Run: npm run build
@@ -112,9 +125,9 @@ function processHTML(html) {
     4. Commit and push the updated index.html
 -->
 `;
-    
+
     processed = processed.replace('<!DOCTYPE html>', `<!DOCTYPE html>${comment}`);
-    
+
     return processed;
 }
 
