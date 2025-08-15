@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cv>
+  <personalInfo>
+    <name>Bo Johnson</name>
+    <title>Senior Software Engineer</title>
+    <email>bo.johnson@email.com</email>
+    <phone>+1 (555) 123-4567</phone>
+    <location>San Francisco, CA</location>
+    <linkedin>https://linkedin.com/in/bojohnson</linkedin>
+    <github>https://github.com/bojohnson</github>
+    <website>https://bojohnson.dev</website>
+    <summary>
+      Experienced software engineer with 8+ years of expertise in full-stack development, 
+      cloud architecture, and team leadership. Passionate about building scalable applications 
+      and mentoring junior developers.
+    </summary>
+  </personalInfo>
+  
+  <experience>
+    <job>
+      <company>TechCorp Inc.</company>
+      <position>Senior Software Engineer</position>
+      <startDate>2021-03</startDate>
+      <endDate>Present</endDate>
+      <location>San Francisco, CA</location>
+      <description>
+        Lead development of microservices architecture serving 10M+ users. 
+        Mentor team of 5 junior developers and drive technical decisions.
+      </description>
+      <achievements>
+        <achievement>Reduced system latency by 40% through optimization</achievement>
+        <achievement>Led migration to cloud-native architecture</achievement>
+        <achievement>Implemented CI/CD pipeline reducing deployment time by 60%</achievement>
+      </achievements>
+      <technologies>
+        <tech>React</tech>
+        <tech>Node.js</tech>
+        <tech>AWS</tech>
+        <tech>Docker</tech>
+        <tech>Kubernetes</tech>
+      </technologies>
+    </job>
+    
+    <job>
+      <company>StartupXYZ</company>
+      <position>Full Stack Developer</position>
+      <startDate>2019-01</startDate>
+      <endDate>2021-02</endDate>
+      <location>Remote</location>
+      <description>
+        Built and maintained web applications from concept to production. 
+        Worked directly with product team to deliver user-focused features.
+      </description>
+      <achievements>
+        <achievement>Developed MVP that secured $2M Series A funding</achievement>
+        <achievement>Built responsive web app with 99.9% uptime</achievement>
+        <achievement>Integrated payment systems processing $1M+ monthly</achievement>
+      </achievements>
+      <technologies>
+        <tech>Angular</tech>
+        <tech>Python</tech>
+        <tech>PostgreSQL</tech>
+        <tech>Redis</tech>
+        <tech>Stripe API</tech>
+      </technologies>
+    </job>
+    
+    <job>
+      <company>Digital Agency Pro</company>
+      <position>Frontend Developer</position>
+      <startDate>2017-06</startDate>
+      <endDate>2018-12</endDate>
+      <location>New York, NY</location>
+      <description>
+        Created responsive websites and web applications for diverse clients. 
+        Collaborated with designers to implement pixel-perfect UI/UX.
+      </description>
+      <achievements>
+        <achievement>Delivered 20+ client projects on time and budget</achievement>
+        <achievement>Improved page load speeds by 50% on average</achievement>
+        <achievement>Established coding standards for development team</achievement>
+      </achievements>
+      <technologies>
+        <tech>JavaScript</tech>
+        <tech>HTML5</tech>
+        <tech>CSS3</tech>
+        <tech>jQuery</tech>
+        <tech>WordPress</tech>
+      </technologies>
+    </job>
+  </experience>
+  
+  <education>
+    <degree>
+      <institution>University of California, Berkeley</institution>
+      <degree>Bachelor of Science in Computer Science</degree>
+      <startDate>2013-09</startDate>
+      <endDate>2017-05</endDate>
+      <gpa>3.8</gpa>
+      <honors>Magna Cum Laude</honors>
+      <relevantCourses>
+        <course>Data Structures and Algorithms</course>
+        <course>Software Engineering</course>
+        <course>Database Systems</course>
+        <course>Computer Networks</course>
+        <course>Machine Learning</course>
+      </relevantCourses>
+    </degree>
+  </education>
+  
+  <skills>
+    <category name="Programming Languages">
+      <skill level="Expert">JavaScript</skill>
+      <skill level="Expert">TypeScript</skill>
+      <skill level="Advanced">Python</skill>
+      <skill level="Advanced">Java</skill>
+      <skill level="Intermediate">Go</skill>
+      <skill level="Intermediate">C++</skill>
+    </category>
+    
+    <category name="Frontend Technologies">
+      <skill level="Expert">React</skill>
+      <skill level="Expert">Angular</skill>
+      <skill level="Advanced">Vue.js</skill>
+      <skill level="Expert">HTML5</skill>
+      <skill level="Expert">CSS3</skill>
+      <skill level="Advanced">SASS/SCSS</skill>
+    </category>
+    
+    <category name="Backend Technologies">
+      <skill level="Expert">Node.js</skill>
+      <skill level="Advanced">Express.js</skill>
+      <skill level="Advanced">Django</skill>
+      <skill level="Intermediate">Spring Boot</skill>
+      <skill level="Advanced">RESTful APIs</skill>
+      <skill level="Intermediate">GraphQL</skill>
+    </category>
+    
+    <category name="Databases">
+      <skill level="Advanced">PostgreSQL</skill>
+      <skill level="Advanced">MongoDB</skill>
+      <skill level="Intermediate">MySQL</skill>
+      <skill level="Advanced">Redis</skill>
+      <skill level="Intermediate">Elasticsearch</skill>
+    </category>
+    
+    <category name="Cloud & DevOps">
+      <skill level="Advanced">AWS</skill>
+      <skill level="Intermediate">Google Cloud</skill>
+      <skill level="Expert">Docker</skill>
+      <skill level="Advanced">Kubernetes</skill>
+      <skill level="Advanced">CI/CD</skill>
+      <skill level="Advanced">Terraform</skill>
+    </category>
+  </skills>
+  
+  <certifications>
+    <certification>
+      <name>AWS Certified Solutions Architect</name>
+      <issuer>Amazon Web Services</issuer>
+      <date>2022-08</date>
+      <credentialId>AWS-SAA-123456</credentialId>
+    </certification>
+    
+    <certification>
+      <name>Certified Kubernetes Administrator</name>
+      <issuer>Cloud Native Computing Foundation</issuer>
+      <date>2021-11</date>
+      <credentialId>CKA-789012</credentialId>
+    </certification>
+  </certifications>
+  
+  <projects>
+    <project>
+      <name>E-commerce Platform</name>
+      <description>
+        Full-stack e-commerce solution with microservices architecture, 
+        supporting multiple payment gateways and real-time inventory management.
+      </description>
+      <technologies>
+        <tech>React</tech>
+        <tech>Node.js</tech>
+        <tech>MongoDB</tech>
+        <tech>Stripe</tech>
+        <tech>AWS</tech>
+      </technologies>
+      <url>https://github.com/bojohnson/ecommerce-platform</url>
+    </project>
+    
+    <project>
+      <name>Task Management App</name>
+      <description>
+        Collaborative task management application with real-time updates, 
+        file sharing, and team communication features.
+      </description>
+      <technologies>
+        <tech>Angular</tech>
+        <tech>Python</tech>
+        <tech>PostgreSQL</tech>
+        <tech>Socket.io</tech>
+        <tech>Docker</tech>
+      </technologies>
+      <url>https://github.com/bojohnson/task-manager</url>
+    </project>
+  </projects>
+</cv>
