@@ -1,13 +1,13 @@
 export interface PersonalInfo {
   name: string;
   title: string;
-  email: string;
-  phone: string;
-  location: string;
+  email?: string;
+  phone?: string;
+  location?: string;
   linkedin?: string;
   github?: string;
   website?: string;
-  summary: string;
+  summary?: string;
 }
 
 export interface Achievement {
@@ -21,10 +21,10 @@ export interface Technology {
 export interface Job {
   company: string;
   position: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  description: string;
+  startDate?: string;
+  endDate?: string;
+  location?: string;
+  description?: string;
   achievements: Achievement[];
   technologies: Technology[];
 }

@@ -6,406 +6,89 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: #333;
-  background: white;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background: #f8fafc;
+  min-height: 100vh;
 }
 
-/* Loading and Error States */
-.loading, .error {
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading p {
+  font-size: 1.1rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Error State */
+.error {
   text-align: center;
   padding: 2rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.error p {
+  color: #dc2626;
   font-size: 1.1rem;
+  margin: 0 0 1rem 0;
 }
 
-.error {
-  color: #d32f2f;
-  background-color: #ffebee;
-  border: 1px solid #ffcdd2;
-  border-radius: 4px;
-}
-
-.loading {
-  color: #1976d2;
-}
-
-/* Personal Info Section */
-.personal-info {
-  text-align: center;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 2px solid #e0e0e0;
-}
-
-.personal-info h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
-  color: #1976d2;
-}
-
-.personal-info h2 {
-  font-size: 1.3rem;
-  font-weight: 400;
-  margin: 0 0 1.5rem 0;
-  color: #666;
-}
-
-.contact-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.contact-item .icon {
-  font-size: 1rem;
-}
-
-.contact-item a {
-  color: #1976d2;
-  text-decoration: none;
-}
-
-.contact-item a:hover {
-  text-decoration: underline;
-}
-
-.summary {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.summary h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #1976d2;
-  text-align: center;
-}
-
-.summary p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #555;
-}
-
-/* Section Styling */
-section {
-  margin-bottom: 3rem;
-}
-
-section h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  color: #1976d2;
-  border-bottom: 2px solid #1976d2;
-  padding-bottom: 0.5rem;
-}
-
-/* Experience Section */
-.job {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #fafafa;
-}
-
-.job-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.job-title h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0 0 0.25rem 0;
-  color: #333;
-}
-
-.job-title h5 {
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 0;
-  color: #1976d2;
-}
-
-.job-meta {
-  text-align: right;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.job-meta .date {
-  display: block;
-  font-weight: 500;
-}
-
-.job-meta .location {
-  display: block;
-  margin-top: 0.25rem;
-}
-
-.job-description {
-  margin-bottom: 1rem;
-  color: #555;
-  line-height: 1.6;
-}
-
-.achievements h6, .technologies h6, .relevant-courses h6, .project-technologies h6 {
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin: 1rem 0 0.5rem 0;
-  color: #333;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.achievements ul {
-  margin: 0;
-  padding-left: 1.5rem;
-}
-
-.achievements li {
-  margin-bottom: 0.5rem;
-  color: #555;
-}
-
-/* Technology and Course Tags */
-.tech-tags, .course-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tech-tag, .course-tag {
-  background-color: #1976d2;
+.retry-button {
+  background: #3b82f6;
   color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.course-tag {
-  background-color: #388e3c;
-}
-
-/* Education Section */
-.degree {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #fafafa;
-}
-
-.degree-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.degree-title h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0 0 0.25rem 0;
-  color: #333;
-}
-
-.degree-title h5 {
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
   font-size: 1rem;
-  font-weight: 500;
-  margin: 0;
-  color: #1976d2;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.degree-meta {
-  text-align: right;
-  font-size: 0.9rem;
-  color: #666;
+.retry-button:hover {
+  background: #2563eb;
 }
 
-.degree-meta .date {
+/* CV Content */
+.cv-content {
+  background: transparent;
+}
+
+.sections-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-wrapper {
   display: block;
-  font-weight: 500;
-}
-
-.degree-meta .gpa, .degree-meta .honors {
-  display: block;
-  margin-top: 0.25rem;
-}
-
-.degree-meta .honors {
-  color: #d32f2f;
-  font-weight: 500;
-}
-
-/* Skills Section */
-.skill-category {
-  margin-bottom: 2rem;
-}
-
-.skill-category h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #333;
-  background-color: #f5f5f5;
-  padding: 0.75rem;
-  border-radius: 4px;
-  border-left: 4px solid #1976d2;
-}
-
-.skills-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 0.75rem;
-}
-
-.skill-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem;
-  background-color: #fafafa;
-  border-radius: 4px;
-  border: 1px solid #e0e0e0;
-}
-
-.skill-name {
-  font-weight: 500;
-  color: #333;
-}
-
-.skill-level {
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.skill-level-beginner {
-  background-color: #ffecb3;
-  color: #f57c00;
-}
-
-.skill-level-intermediate {
-  background-color: #c8e6c9;
-  color: #388e3c;
-}
-
-.skill-level-advanced {
-  background-color: #bbdefb;
-  color: #1976d2;
-}
-
-.skill-level-expert {
-  background-color: #f8bbd9;
-  color: #c2185b;
-}
-
-/* Certifications Section */
-.certification {
-  margin-bottom: 1.5rem;
-  padding: 1.25rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #fafafa;
-}
-
-.cert-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.cert-header h4 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0;
-  color: #333;
-}
-
-.cert-date {
-  font-size: 0.9rem;
-  color: #666;
-  font-weight: 500;
-}
-
-.cert-issuer {
-  color: #1976d2;
-  font-weight: 500;
-  margin: 0.25rem 0;
-}
-
-.cert-id {
-  font-size: 0.85rem;
-  color: #666;
-  margin: 0;
-}
-
-/* Projects Section */
-.project {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background-color: #fafafa;
-}
-
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.project-header h4 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0;
-  color: #333;
-}
-
-.project-link {
-  color: #1976d2;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-.project-link:hover {
-  text-decoration: underline;
-}
-
-.project-description {
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 1rem;
 }
 
 /* Responsive Design */
@@ -413,56 +96,17 @@ section h3 {
   .cv-container {
     padding: 1rem;
   }
-
-  .personal-info h1 {
-    font-size: 2rem;
-  }
-
-  .contact-info {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .job-header, .degree-header, .cert-header, .project-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .job-meta, .degree-meta {
-    text-align: left;
-  }
-
-  .skills-list {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Print Styles */
 @media print {
   .cv-container {
+    background: white;
     box-shadow: none;
-    padding: 0;
-    max-width: none;
+    padding: 1rem;
   }
 
-  .job, .degree, .certification, .project {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  section {
-    break-after: avoid;
-    page-break-after: avoid;
-  }
-
-  .tech-tag, .course-tag {
-    border: 1px solid #1976d2;
-    color: #1976d2;
-    background-color: transparent;
-  }
-
-  .course-tag {
-    border-color: #388e3c;
-    color: #388e3c;
+  .sections-container {
+    gap: 1rem;
   }
 }

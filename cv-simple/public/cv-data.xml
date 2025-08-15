@@ -3,12 +3,14 @@
   <personalInfo>
     <name>Bo Johnson</name>
     <title>Senior Software Engineer</title>
+    <!--
     <email>bo.johnson@email.com</email>
     <phone>+1 (555) 123-4567</phone>
     <location>San Francisco, CA</location>
     <linkedin>https://linkedin.com/in/bojohnson</linkedin>
     <github>https://github.com/bojohnson</github>
     <website>https://bojohnson.dev</website>
+    -->
     <summary>
       Experienced software engineer with 8+ years of expertise in full-stack development, 
       cloud architecture, and team leadership. Passionate about building scalable applications 

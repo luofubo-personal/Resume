@@ -1,157 +1,26 @@
 <div class="cv-container">
   <!-- Loading State -->
   <div *ngIf="loading" class="loading">
+    <div class="loading-spinner"></div>
     <p>Loading CV data...</p>
   </div>
 
   <!-- Error State -->
   <div *ngIf="error" class="error">
+    <div class="error-icon">⚠️</div>
     <p>{{ error }}</p>
+    <button (click)="loadCvData()" class="retry-button">Retry</button>
   </div>
 
-  <!-- CV Content -->
+  <!-- CV Content - Dynamic Sections -->
   <div *ngIf="cvData && !loading && !error" class="cv-content">
-
-    <!-- Personal Info Section -->
-    <header class="personal-info">
-      <h1>{{ cvData.personalInfo.name }}</h1>
-      <h2>{{ cvData.personalInfo.title }}</h2>
-
-      <div class="contact-info">
-        <div class="contact-item">
-          <span class="icon">📧</span>
-          <a href="mailto:{{ cvData.personalInfo.email }}">{{ cvData.personalInfo.email }}</a>
-        </div>
-        <div class="contact-item">
-          <span class="icon">📱</span>
-          <span>{{ cvData.personalInfo.phone }}</span>
-        </div>
-        <div class="contact-item">
-          <span class="icon">📍</span>
-          <span>{{ cvData.personalInfo.location }}</span>
-        </div>
-        <div class="contact-item" *ngIf="cvData.personalInfo.linkedin">
-          <span class="icon">💼</span>
-          <a href="{{ cvData.personalInfo.linkedin }}" target="_blank">LinkedIn</a>
-        </div>
-        <div class="contact-item" *ngIf="cvData.personalInfo.github">
-          <span class="icon">🔗</span>
-          <a href="{{ cvData.personalInfo.github }}" target="_blank">GitHub</a>
-        </div>
-        <div class="contact-item" *ngIf="cvData.personalInfo.website">
-          <span class="icon">🌐</span>
-          <a href="{{ cvData.personalInfo.website }}" target="_blank">Website</a>
-        </div>
-      </div>
-
-      <div class="summary">
-        <h3>Professional Summary</h3>
-        <p>{{ cvData.personalInfo.summary }}</p>
-      </div>
-    </header>
-
-    <!-- Experience Section -->
-    <section class="experience">
-      <h3>Professional Experience</h3>
-      <div class="job" *ngFor="let job of cvData.experience.jobs">
-        <div class="job-header">
-          <div class="job-title">
-            <h4>{{ job.position }}</h4>
-            <h5>{{ job.company }}</h5>
-          </div>
-          <div class="job-meta">
-            <span class="date">{{ job.startDate }} - {{ job.endDate }}</span>
-            <span class="location">{{ job.location }}</span>
-          </div>
-        </div>
-        <p class="job-description">{{ job.description }}</p>
-
-        <div class="achievements" *ngIf="job.achievements.length > 0">
-          <h6>Key Achievements:</h6>
-          <ul>
-            <li *ngFor="let achievement of job.achievements">{{ achievement.text }}</li>
-          </ul>
-        </div>
-
-        <div class="technologies" *ngIf="job.technologies.length > 0">
-          <h6>Technologies:</h6>
-          <div class="tech-tags">
-            <span class="tech-tag" *ngFor="let tech of job.technologies">{{ tech.name }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Education Section -->
-    <section class="education">
-      <h3>Education</h3>
-      <div class="degree" *ngFor="let degree of cvData.education.degrees">
-        <div class="degree-header">
-          <div class="degree-title">
-            <h4>{{ degree.degree }}</h4>
-            <h5>{{ degree.institution }}</h5>
-          </div>
-          <div class="degree-meta">
-            <span class="date">{{ degree.startDate }} - {{ degree.endDate }}</span>
-            <span class="gpa" *ngIf="degree.gpa">GPA: {{ degree.gpa }}</span>
-            <span class="honors" *ngIf="degree.honors">{{ degree.honors }}</span>
-          </div>
-        </div>
-
-        <div class="relevant-courses" *ngIf="degree.relevantCourses.length > 0">
-          <h6>Relevant Coursework:</h6>
-          <div class="course-tags">
-            <span class="course-tag" *ngFor="let course of degree.relevantCourses">{{ course.name }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills">
-      <h3>Technical Skills</h3>
-      <div class="skill-category" *ngFor="let category of cvData.skills.categories">
-        <h4>{{ category.name }}</h4>
-        <div class="skills-list">
-          <div class="skill-item" *ngFor="let skill of category.skills">
-            <span class="skill-name">{{ skill.name }}</span>
-            <span class="skill-level skill-level-{{ skill.level.toLowerCase() }}">{{ skill.level }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section class="certifications" *ngIf="cvData.certifications.certifications.length > 0">
-      <h3>Certifications</h3>
-      <div class="certification" *ngFor="let cert of cvData.certifications.certifications">
-        <div class="cert-header">
-          <h4>{{ cert.name }}</h4>
-          <span class="cert-date">{{ cert.date }}</span>
-        </div>
-        <p class="cert-issuer">{{ cert.issuer }}</p>
-        <p class="cert-id" *ngIf="cert.credentialId">Credential ID: {{ cert.credentialId }}</p>
-      </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects" *ngIf="cvData.projects.projects.length > 0">
-      <h3>Notable Projects</h3>
-      <div class="project" *ngFor="let project of cvData.projects.projects">
-        <div class="project-header">
-          <h4>{{ project.name }}</h4>
-          <a *ngIf="project.url" href="{{ project.url }}" target="_blank" class="project-link">View Project</a>
-        </div>
-        <p class="project-description">{{ project.description }}</p>
-
-        <div class="project-technologies" *ngIf="project.technologies.length > 0">
-          <h6>Technologies:</h6>
-          <div class="tech-tags">
-            <span class="tech-tag" *ngFor="let tech of project.technologies">{{ tech.name }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <div class="sections-container">
+      <app-dynamic-section
+        *ngFor="let section of sections; trackBy: trackBySection"
+        [sectionConfig]="section"
+        [data]="getSectionData(section.key)"
+        class="section-wrapper">
+      </app-dynamic-section>
+    </div>
   </div>
 </div>
