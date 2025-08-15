@@ -52,7 +52,10 @@ jobs:
     - name: Prepare deployment directory
       run: |
         mkdir -p deploy
+        # Copy all Angular build files directly to deploy root
         cp -r cv-simple/dist/cv-simple/browser/* deploy/
+        # Verify index.html exists
+        ls -la deploy/
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
