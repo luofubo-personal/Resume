@@ -144,7 +144,7 @@
       <skill level="Intermediate">Elasticsearch</skill>
     </category>
     
-    <category name="Cloud & DevOps">
+    <category name="Cloud &amp; DevOps">
       <skill level="Advanced">AWS</skill>
       <skill level="Intermediate">Google Cloud</skill>
       <skill level="Expert">Docker</skill>

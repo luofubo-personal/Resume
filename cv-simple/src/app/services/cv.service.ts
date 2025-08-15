@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { 
   CV, 
   PersonalInfo, 
@@ -28,10 +28,58 @@ export class CvService {
   constructor(private http: HttpClient) { }
 
   getCvData(): Observable<CV> {
+    // Temporary: Return hardcoded data to test component rendering
+    const testData: CV = {
+      personalInfo: {
+        name: 'Bo Johnson',
+        title: 'Senior Software Engineer',
+        email: 'bo.johnson@email.com',
+        phone: '+1 (555) 123-4567',
+        location: 'San Francisco, CA',
+        summary: 'Experienced software engineer with 8+ years of expertise.'
+      },
+      experience: {
+        jobs: [{
+          company: 'TechCorp Inc.',
+          position: 'Senior Software Engineer',
+          startDate: '2021-03',
+          endDate: 'Present',
+          location: 'San Francisco, CA',
+          description: 'Lead development of microservices architecture.',
+          achievements: [{ text: 'Reduced system latency by 40%' }],
+          technologies: [{ name: 'React' }, { name: 'Node.js' }]
+        }]
+      },
+      education: {
+        degrees: [{
+          institution: 'University of California, Berkeley',
+          degree: 'Bachelor of Science in Computer Science',
+          startDate: '2013-09',
+          endDate: '2017-05',
+          gpa: '3.8',
+          honors: 'Magna Cum Laude',
+          relevantCourses: [{ name: 'Data Structures' }]
+        }]
+      },
+      skills: {
+        categories: [{
+          name: 'Programming Languages',
+          skills: [{ name: 'JavaScript', level: 'Expert' }]
+        }]
+      },
+      certifications: { certifications: [] },
+      projects: { projects: [] }
+    };
+
+    return of(testData);
+
+    // Original XML loading code (commented out for testing)
+    /*
     return this.http.get('/cv-data.xml', { responseType: 'text' })
       .pipe(
         map(xmlString => this.parseXmlToCv(xmlString))
       );
+    */
   }
 
   private parseXmlToCv(xmlString: string): CV {
@@ -44,15 +92,42 @@ export class CvService {
       console.error('XML parsing error:', parserError.textContent);
       throw new Error('Failed to parse XML: ' + parserError.textContent);
     }
+
+    console.log('XML parsed successfully');
+    console.log('Root element:', xmlDoc.documentElement.tagName);
+    console.log('Root children:', Array.from(xmlDoc.documentElement.children).map(child => child.tagName));
     
-    return {
-      personalInfo: this.parsePersonalInfo(xmlDoc),
-      experience: this.parseExperience(xmlDoc),
-      education: this.parseEducation(xmlDoc),
-      skills: this.parseSkills(xmlDoc),
-      certifications: this.parseCertifications(xmlDoc),
-      projects: this.parseProjects(xmlDoc)
-    };
+    try {
+      const personalInfo = this.parsePersonalInfo(xmlDoc);
+      console.log('Personal info parsed successfully');
+
+      const experience = this.parseExperience(xmlDoc);
+      console.log('Experience parsed successfully');
+
+      const education = this.parseEducation(xmlDoc);
+      console.log('Education parsed successfully');
+
+      const skills = this.parseSkills(xmlDoc);
+      console.log('Skills parsed successfully');
+
+      const certifications = this.parseCertifications(xmlDoc);
+      console.log('Certifications parsed successfully');
+
+      const projects = this.parseProjects(xmlDoc);
+      console.log('Projects parsed successfully');
+
+      return {
+        personalInfo,
+        experience,
+        education,
+        skills,
+        certifications,
+        projects
+      };
+    } catch (error) {
+      console.error('Error during parsing:', error);
+      throw error;
+    }
   }
 
   private parsePersonalInfo(xmlDoc: Document): PersonalInfo {
@@ -121,6 +196,15 @@ export class CvService {
     const degrees: Degree[] = Array.from(degreeNodes).map((degreeNode, index) => {
       console.log(`Processing degree ${index}:`, degreeNode);
       console.log('Degree node children:', Array.from(degreeNode.children).map(child => child.tagName));
+      console.log('Degree node innerHTML:', degreeNode.innerHTML);
+
+      // Check if institution element exists
+      const institutionElement = degreeNode.querySelector('institution');
+      console.log('Institution element:', institutionElement);
+      if (!institutionElement) {
+        console.error('Institution element not found in degree node');
+        throw new Error('Institution element not found in degree node');
+      }
 
       return {
         institution: this.getTextContent(degreeNode, 'institution'),
