@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CV } from '../models/cv.models';
+import { CV, PersonalInfo, Job, Degree, SkillCategory, Certification, Project } from '../models/cv.models';
 
 export interface SectionConfig {
   key: string;
@@ -77,7 +77,7 @@ export class DynamicRendererService {
     ].filter(section => section.hasData);
   }
 
-  getPersonalInfoFields(personalInfo: any): FieldConfig[] {
+  getPersonalInfoFields(personalInfo: PersonalInfo): FieldConfig[] {
     const fields: FieldConfig[] = [];
     
     if (personalInfo.name) {
@@ -111,7 +111,7 @@ export class DynamicRendererService {
     return fields;
   }
 
-  getJobFields(job: any): FieldConfig[] {
+  getJobFields(job: Job): FieldConfig[] {
     const fields: FieldConfig[] = [];
     
     if (job.company) {
@@ -142,7 +142,7 @@ export class DynamicRendererService {
     return fields;
   }
 
-  getDegreeFields(degree: any): FieldConfig[] {
+  getDegreeFields(degree: Degree): FieldConfig[] {
     const fields: FieldConfig[] = [];
     
     if (degree.institution) {
@@ -170,7 +170,7 @@ export class DynamicRendererService {
     return fields;
   }
 
-  getSkillCategoryFields(category: any): FieldConfig[] {
+  getSkillCategoryFields(category: SkillCategory): FieldConfig[] {
     const fields: FieldConfig[] = [];
     
     if (category.name) {
@@ -183,7 +183,7 @@ export class DynamicRendererService {
     return fields;
   }
 
-  getCertificationFields(certification: any): FieldConfig[] {
+  getCertificationFields(certification: Certification): FieldConfig[] {
     const fields: FieldConfig[] = [];
     
     if (certification.name) {
@@ -202,7 +202,7 @@ export class DynamicRendererService {
     return fields;
   }
 
-  getProjectFields(project: any): FieldConfig[] {
+  getProjectFields(project: Project): FieldConfig[] {
     const fields: FieldConfig[] = [];
     
     if (project.name) {
@@ -221,27 +221,35 @@ export class DynamicRendererService {
     return fields;
   }
 
-  formatFieldValue(value: any, field: FieldConfig): string {
+  formatFieldValue(value: unknown, field: FieldConfig): string {
     if (!value) return '';
 
     switch (field.type) {
       case 'date':
         if (field.format === 'YYYY-MM') {
-          return this.formatDate(value);
+          return this.formatDate(String(value));
         }
-        return value;
+        return String(value);
       case 'list':
         if (Array.isArray(value)) {
-          return value.map(item => typeof item === 'object' ? item.text || item.name : item).join(', ');
+          return value.map(item => typeof item === 'object' && item !== null ?
+            (item as Record<string, unknown>)['text'] || (item as Record<string, unknown>)['name'] || String(item) :
+            String(item)).join(', ');
         }
-        return value;
+        return String(value);
       case 'array':
         if (Array.isArray(value)) {
-          return value.map(item => `${item.name} (${item.level})`).join(', ');
+          return value.map(item => {
+            if (typeof item === 'object' && item !== null) {
+              const obj = item as Record<string, unknown>;
+              return `${obj['name'] || 'Unknown'} (${obj['level'] || 'Unknown'})`;
+            }
+            return String(item);
+          }).join(', ');
         }
-        return value;
+        return String(value);
       default:
-        return value.toString();
+        return String(value);
     }
   }
 

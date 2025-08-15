@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicFieldComponent } from '../dynamic-field/dynamic-field';
 import { SectionConfig, FieldConfig, DynamicRendererService } from '../../services/dynamic-renderer.service';
+import { PersonalInfo } from '../../models/cv.models';
 
 @Component({
   selector: 'app-dynamic-section',
@@ -447,12 +448,12 @@ import { SectionConfig, FieldConfig, DynamicRendererService } from '../../servic
 })
 export class DynamicSectionComponent {
   @Input() sectionConfig!: SectionConfig;
-  @Input() data: any;
+  @Input() data: unknown;
 
-  constructor(private dynamicRenderer: DynamicRendererService) {}
+  private dynamicRenderer = inject(DynamicRendererService);
 
   getSectionIcon(): string {
-    const iconMap: { [key: string]: string } = {
+    const iconMap: Record<string, string> = {
       'personalInfo': '👤',
       'experience': '💼',
       'education': '🎓',
@@ -464,7 +465,7 @@ export class DynamicSectionComponent {
   }
 
   getPersonalInfoFields(): FieldConfig[] {
-    return this.dynamicRenderer.getPersonalInfoFields(this.data)
+    return this.dynamicRenderer.getPersonalInfoFields(this.data as PersonalInfo)
       .filter(field => field.key !== 'name' && field.key !== 'title' && field.key !== 'summary');
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CvService } from '../../services/cv.service';
 import { DynamicRendererService, SectionConfig } from '../../services/dynamic-renderer.service';
@@ -17,10 +17,8 @@ export class Cv implements OnInit {
   error: string | null = null;
   sections: SectionConfig[] = [];
 
-  constructor(
-    private cvService: CvService,
-    private dynamicRenderer: DynamicRendererService
-  ) {}
+  private cvService = inject(CvService);
+  private dynamicRenderer = inject(DynamicRendererService);
 
   ngOnInit(): void {
     this.loadCvData();
@@ -28,9 +26,9 @@ export class Cv implements OnInit {
 
 
 
-  getSectionData(sectionKey: string): any {
+  getSectionData(sectionKey: string): unknown {
     if (!this.cvData) return null;
-    return (this.cvData as any)[sectionKey];
+    return (this.cvData as unknown as Record<string, unknown>)[sectionKey];
   }
 
   trackBySection(index: number, section: SectionConfig): string {

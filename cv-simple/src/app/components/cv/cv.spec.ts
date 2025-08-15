@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
-import { By } from '@angular/platform-browser';
 
 import { Cv } from './cv';
 import { CvService } from '../../services/cv.service';
@@ -182,7 +181,6 @@ describe('Cv', () => {
     });
 
     it('should handle loading errors', () => {
-      const errorMessage = 'Failed to load CV data';
       cvService.getCvData.and.returnValue(throwError(() => new Error('Network error')));
 
       component.ngOnInit();

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, of } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { 
   CV, 
   PersonalInfo, 
@@ -24,8 +24,7 @@ import {
   providedIn: 'root'
 })
 export class CvService {
-
-  constructor(private http: HttpClient) { }
+  private http = inject(HttpClient);
 
   getCvData(): Observable<CV> {
     return this.http.get('/cv-data.xml', { responseType: 'text' })

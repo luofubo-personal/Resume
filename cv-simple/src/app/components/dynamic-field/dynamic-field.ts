@@ -197,7 +197,7 @@ import { FieldConfig } from '../../services/dynamic-renderer.service';
 })
 export class DynamicFieldComponent {
   @Input() field!: FieldConfig;
-  @Input() value: any;
+  @Input() value: unknown;
 
   getUrlType(url: string): string {
     if (url.includes('linkedin.com')) return 'linkedin';
@@ -228,17 +228,20 @@ export class DynamicFieldComponent {
     return `${monthNames[parseInt(month) - 1]} ${year}`;
   }
 
-  getListItems(value: any): any[] {
+  getListItems(value: unknown): unknown[] {
     if (!value) return [];
     if (Array.isArray(value)) return value;
     return [value];
   }
 
-  getListItemText(item: any): string {
+  getListItemText(item: unknown): string {
     if (typeof item === 'string') return item;
-    if (item.text) return item.text;
-    if (item.name) return item.name;
-    return item.toString();
+    if (typeof item === 'object' && item !== null) {
+      const obj = item as Record<string, unknown>;
+      if (obj['text']) return String(obj['text']);
+      if (obj['name']) return String(obj['name']);
+    }
+    return String(item);
   }
 
   getListItemClass(): string {
@@ -255,31 +258,37 @@ export class DynamicFieldComponent {
     return '';
   }
 
-  getArrayItems(value: any): any[] {
+  getArrayItems(value: unknown): unknown[] {
     if (!value) return [];
     if (Array.isArray(value)) return value;
     return [value];
   }
 
-  getArrayItemText(item: any): string {
+  getArrayItemText(item: unknown): string {
     if (typeof item === 'string') return item;
-    if (item.name && item.level) return `${item.name}`;
-    if (item.name) return item.name;
-    return item.toString();
+    if (typeof item === 'object' && item !== null) {
+      const obj = item as Record<string, unknown>;
+      if (obj['name'] && obj['level']) return `${obj['name']}`;
+      if (obj['name']) return String(obj['name']);
+    }
+    return String(item);
   }
 
-  getSkillLevel(item: any): string {
-    if (item.level) {
-      return item.level.toLowerCase();
+  getSkillLevel(item: unknown): string {
+    if (typeof item === 'object' && item !== null) {
+      const obj = item as Record<string, unknown>;
+      if (obj['level']) {
+        return String(obj['level']).toLowerCase();
+      }
     }
     return 'intermediate';
   }
 
-  getObjectDisplay(value: any): string {
+  getObjectDisplay(value: unknown): string {
     if (typeof value === 'string') return value;
     if (typeof value === 'object') {
       return JSON.stringify(value, null, 2);
     }
-    return value.toString();
+    return String(value);
   }
 }
