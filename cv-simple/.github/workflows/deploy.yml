@@ -3,8 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -48,15 +47,21 @@ jobs:
     - name: Build application
       run: |
         cd cv-simple
-        npm run build
-        
+        npm run build -- --base-href /Resume/
+
+    - name: Prepare deployment directory
+      run: |
+        mkdir -p deploy
+        cp index.html deploy/
+        cp -r cv-simple/dist/cv-simple/browser/* deploy/
+
     - name: Setup Pages
       uses: actions/configure-pages@v4
-      
+
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: cv-simple/dist/cv-simple/browser
+        path: deploy
 
   deploy:
     environment:
