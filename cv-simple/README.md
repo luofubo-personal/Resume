@@ -182,6 +182,9 @@ npm run build
 
 # Run tests
 npm test
+
+# Run ESLint for code quality checks
+npm run lint
 ```
 
 ### **Project Structure**
@@ -204,23 +207,44 @@ cv-simple/
 └── DEMO.md                       # Usage examples
 ```
 
-## 🧪 Testing
+## 🧪 Testing & Code Quality
 
-The application includes comprehensive tests for the dynamic system:
+The application includes comprehensive tests and code quality tools:
 
+### **Testing**
 ```bash
 # Run all tests
 npm test
+
+# Run tests without watch mode
+npm test -- --watch=false
 
 # Run specific test suite
 npm test -- --include="**/dynamic-renderer.service.spec.ts"
 ```
 
 **Test Coverage:**
+- ✅ **22 Total Tests** - All passing with comprehensive coverage
 - ✅ **6 Core Dynamic System Tests** - Validate field detection and configuration generation
 - ✅ **Field Type Detection** - Ensure proper type inference for all field types
 - ✅ **Section Configuration** - Verify correct section generation based on data
 - ✅ **Data Formatting** - Test date formatting, skill level detection, etc.
+
+### **Code Quality (ESLint)**
+```bash
+# Run ESLint for code quality checks
+npm run lint
+
+# Run ESLint with auto-fix for fixable issues
+npm run lint -- --fix
+```
+
+**ESLint Configuration:**
+- ✅ **Angular-Specific Rules** - Component and directive naming conventions
+- ✅ **TypeScript Rules** - Type safety, unused variables, consistent coding style
+- ✅ **Template Linting** - HTML template validation and accessibility checks
+- ✅ **Modern Patterns** - Enforces inject() over constructor injection
+- ✅ **Zero Errors** - All code passes linting with strict rules
 
 ## 📚 Documentation
 
